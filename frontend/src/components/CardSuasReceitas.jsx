@@ -1,19 +1,23 @@
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
+
 import { makeStyles } from "@material-ui/core/styles";
 import api from '../services/Api'
 import React, { useState, useEffect } from 'react'
 import ReactLoading from "react-loading";
 import Dialog from '@material-ui/core/Dialog';
 import DialogEdit from './DialogEdit'
-
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import InfoIcon from '@material-ui/icons/Info';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		display: 'flex',
 		flexWrap: 'wrap',
+		flexDirection: 'row',
 		justifyContent: 'space-around',
 		overflow: 'hidden',
 		backgroundColor: theme.palette.background.paper,
@@ -28,6 +32,17 @@ const useStyles = makeStyles((theme) => ({
 	},
 	icon: {
 		color: 'rgba(255, 255, 255, 0.54)',
+	},
+	card: {
+		maxWidth: 345,
+		margin: 10
+	},
+	contentCard: {
+		display: 'flex',
+		flexWrap: 'wrap',
+	},
+	media: {
+		height: 140,
 	},
 }));
 function CardSuasReceitas() {
@@ -60,31 +75,40 @@ function CardSuasReceitas() {
 					<Dialog onClose={(_) => setOpen(false)} aria-labelledby="customized-dialog-title" maxWidth="lg" open={open}>
 						<DialogEdit loadMeal={loadMeal} detalhesReceita={detalhesRecipe} handleClose={handleClose} />
 					</Dialog>
-
-					<GridList cellHeight={250} spacing={8} cols={4} className={classes.gridList}>
-
-						<GridListTile key="Subheader" cols={4} style={{ height: 'auto', width: '100%' }}>
-						</GridListTile>
-						{tileData.map((tile, index) => (
-							<GridListTile className={classes.gridTile} key={index}>
-								<img src={tile.enderecoImg} alt={tile.titulo} />
-								<GridListTileBar
-									title={tile.titulo}
-									subtitle={<span>{tile.categoria}</span>}
-									actionIcon={
-										<IconButton
-											onClick={() => {
+					<div className={classes.contentCard}>
+						{tileData.map((tile, index) => {
+							return (
+								<Card className={classes.card}>
+									<CardActionArea>
+										<CardMedia
+											className={classes.media}
+											image={tile.enderecoImg}
+											title="Contemplative Reptile"
+										/>
+										<CardContent>
+											<Typography gutterBottom variant="h5" component="h2">
+												{tile.titulo}
+											</Typography>
+											<Typography variant="body2" color="textSecondary" component="p">
+												{tile.categoria}
+											</Typography>
+										</CardContent>
+									</CardActionArea>
+									<CardActions>
+										<Button size="large" startIcon={<InfoIcon />}
+											variant="contained" color="primary" autoFocus onClick={() => {
 												setDetalhesRecipe(tile);
 												setOpen(true)
-											}}
-											aria-label={`info about ${tile.titulo}`} className={classes.icon}  >
-											<InfoIcon />
-										</IconButton>
-									}
-								/>
-							</GridListTile>
-						))};
-			</GridList>
+											}} >
+											Ver Detalhes
+										</Button>
+									</CardActions>
+								</Card>
+							)
+						})}
+
+					</div>
+
 				</div>
 			}
 		</div>

@@ -5,7 +5,7 @@ export function getItemsMenu(){
 			{
 				label: "Adicionar Receita",
 				icon: <Add/>,
-				action: ""
+				action: "/add"
 			}
 		],
 		menuItems: [

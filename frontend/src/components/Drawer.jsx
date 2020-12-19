@@ -18,8 +18,6 @@ import { Menu } from '@material-ui/icons';
 
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { getItemsMenu } from "../utils/textUtils";
-import Dialog from '@material-ui/core/Dialog';
-import DialogAdd from './DialogAdd'
 
 const drawerWidth = 240;
 const useStyles = makeStyles((theme) => ({
@@ -63,46 +61,44 @@ function DrawerMenu(props) {
 	const classes = useStyles();
 	const theme = useTheme();
 	const [mobileOpen, setMobileOpen] = useState(false);
-	const [open, setOpen] = useState(false);
 
 	var ativo = false;
 	const handleDrawerToggle = () => {
 		setMobileOpen(!mobileOpen);
 	};
-	const handleClose = () => {
-		setOpen(false);
-	};
+
 	const drawer = (
 		<div>
 			<Divider />
 			<List>
 				{actionItems.map((items, index) => (
-					<ListItem onClick={() => {
-						setOpen(true)
-					}} button key={index}>
-						<ListItemIcon>{items.icon}</ListItemIcon>
-						<ListItemText primary={items.label} />
-					</ListItem>
+					<Link key={index} href={items.action}>
+						<ListItem button key={index}>
+							<ListItemIcon>{items.icon}</ListItemIcon>
+							<ListItemText primary={items.label} />
+						</ListItem>
+					</Link>
+
 				))}
 			</List>
 			<Divider />
 			<List>
 				{menuItems.map((items, index) => {
 
-						if(myPathName === items.action){
-							 ativo = true;
-						}else{
-							ativo = false;
-						}
-						return (
+					if (myPathName === items.action) {
+						ativo = true;
+					} else {
+						ativo = false;
+					}
+					return (
 
-							<Link key={index} href={items.action}>
-								<ListItem  selected={ativo} button >
-									<ListItemIcon>{items.icon}</ListItemIcon>
-									<ListItemText primary={items.label} />
-								</ListItem>
-							</Link>
-						)
+						<Link key={index} href={items.action}>
+							<ListItem selected={ativo} button >
+								<ListItemIcon>{items.icon}</ListItemIcon>
+								<ListItemText primary={items.label} />
+							</ListItem>
+						</Link>
+					)
 				})}
 			</List>
 		</div>
@@ -112,9 +108,7 @@ function DrawerMenu(props) {
 		window !== undefined ? () => window().document.body : undefined;
 	return (
 		<div className={classes.root}>
-			<Dialog onClose={(_) => setOpen(false)} aria-labelledby="customized-dialog-title" maxWidth="lg" open={open}>
-						<DialogAdd handleClose={handleClose} />
-					</Dialog>
+
 			<CssBaseline />
 			<AppBar position="fixed" className={classes.appBar}>
 				<Toolbar>

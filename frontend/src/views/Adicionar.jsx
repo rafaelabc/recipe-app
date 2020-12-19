@@ -1,64 +1,32 @@
+import { makeStyles } from "@material-ui/core/styles";
 import React, { useState } from 'react';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Api from '../services/Api'
-import EditIcon from '@material-ui/icons/Edit';
-import DoneIcon from '@material-ui/icons/Done';
-import green from '@material-ui/core/colors/green';
-
-const colorGreen = green['A700'];
-
-const styles = (theme) => ({
+import SaveIcon from '@material-ui/icons/Save';
+import MuiAlert from '@material-ui/lab/Alert';
+const useStyles = makeStyles((theme) => ({
 	root: {
-		margin: 0,
-		padding: theme.spacing(2),
-	},
-	closeButton: {
-		position: 'absolute',
-		right: theme.spacing(1),
-		top: theme.spacing(1),
-		color: theme.palette.grey[500],
-	},
-	chip: {
-		margin: theme.spacing(1),
-	}
-});
-const DialogContent = withStyles((theme) => ({
-	root: {
-		padding: theme.spacing(2),
-	},
-}))(MuiDialogContent);
+		display: "flex",
 
-const DialogActions = withStyles((theme) => ({
-	root: {
-		margin: 0,
-		padding: theme.spacing(1),
 	},
-}))(MuiDialogActions);
-const DialogTitle = withStyles(styles)((props) => {
-	const { children, classes, onClose, ...other } = props;
-	return (
-		<MuiDialogTitle disableTypography className={classes.root} {...other}>
-			<Typography variant="h6">{children}</Typography>
-			{onClose ? (
-				<IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
-					<CloseIcon />
-				</IconButton>
-			) : null}
-		</MuiDialogTitle>
-	);
-});
+	toolbar: theme.mixins.toolbar,
+	content: {
+		flexGrow: 1,
+		padding: theme.spacing(3),
 
-function DialogAdd(props) {
+	},
 
+}));
+
+function Alert(props) {
+	return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+function Adicionar(props) {
+	const classes = useStyles();
 	const [titulo, setTitulo] = useState("")
 	const [categoria, setCategoria] = useState("")
 	const [tipoRefeicao, setTipoRefeicao] = useState("")
@@ -66,13 +34,29 @@ function DialogAdd(props) {
 	const [ingredientes, setIngredientes] = useState("")
 	const [instrucoes, setInstrucoes] = useState("")
 	const [linkVideo, setLinkVideo] = useState("")
-	const [nivelDificuldade, setNivelDificuldade] = useState(0)
-	const [qtdPessoasServidas, setQtdPessoasServidas] = useState(0)
-
+	const [nivelDificuldade, setNivelDificuldade] = useState("")
+	const [qtdPessoasServidas, setQtdPessoasServidas] = useState("")
+	const [showOk, setShowOk] = useState(false)
+	const [showErro, setShowErro] = useState(false)
+	function clearInput(){
+		setTitulo("")
+		setCategoria("")
+		setTipoRefeicao("")
+		setEnderecoImg("")
+		setIngredientes("")
+		setInstrucoes("")
+		setLinkVideo("")
+		setNivelDificuldade("")
+		setQtdPessoasServidas("")
+	}
 	async function salvar() {
-		// if (titulo.length === 0 || categoria.length === 0 || tipoRefeicao.length === 0 || enderecoImg.length === 0 || ingredientes.length === 0 || instrucoes.length === 0 || linkVideo.length === 0 || nivelDificuldade === 0 || qtdPessoasServidas === 0) {
-		// 	return null;
-		// }
+		if (titulo.length === 0 || categoria.length === 0 || tipoRefeicao.length === 0 || enderecoImg.length === 0 || ingredientes.length === 0 || instrucoes.length === 0 || linkVideo.length === 0 || nivelDificuldade === 0 || qtdPessoasServidas === 0) {
+			setShowErro(true)
+			const timer = setTimeout(() => {
+				setShowErro(false);
+			}, 4000);
+			return () => clearTimeout(timer);
+		} else {
 			const data = {
 				titulo,
 				categoria,
@@ -85,23 +69,32 @@ function DialogAdd(props) {
 				qtdPessoasServidas
 			}
 			await Api.post('receitas', data)
-			props.handleClose();
+			setShowOk(true)
+			const timer = setTimeout(() => {
+				setShowOk(false);
+				clearInput();
+
+			}, 3000);
+			return () => clearTimeout(timer);
+		}
 	}
 	return (
-		<div id="dialogAdd">
-
-
-			<DialogTitle id="customized-dialog-title" onClose={() => props.handleClose()}>
-				Adicionar receita
-
-
-			</DialogTitle>
-			<DialogContent dividers>
-
+		<div id="Add" className={classes.root}>
+			<main className={classes.content}>
+				<div className={classes.toolbar} />
 				<form style={{ margin: "5px" }} noValidate autoComplete="off">
 					<div>
 						<Grid container spacing={3}>
+							<Grid item xs={12}>
+								{showOk ? <Alert severity="success">Adicionado com sucesso</Alert> : "" }
+								{showErro ? <Alert severity="error">Existem campos vazios! Verifique se todos campos são válidos</Alert> : "" }
 
+
+
+							</Grid>
+							<Grid item xs={12}>
+								<Typography variant="h4">Adicionar receita</Typography>
+							</Grid>
 							<Grid item xs={12}>
 								<TextField
 									fullWidth
@@ -109,7 +102,7 @@ function DialogAdd(props) {
 									id="outlined-read-only-input"
 									label="Título"
 									onChange={(e) => setTitulo(e.target.value)}
-									defaultValue=""
+									defaultValue={titulo}
 
 									variant="outlined"
 								/>
@@ -121,7 +114,7 @@ function DialogAdd(props) {
 									id="outlined-read-only-input"
 									label="Categoria"
 									onChange={(e) => setCategoria(e.target.value)}
-									defaultValue=""
+									defaultValue={categoria}
 
 									variant="outlined"
 								/>
@@ -133,7 +126,7 @@ function DialogAdd(props) {
 									id="outlined-read-only-input"
 									label="Tipo de Refeição"
 									onChange={(e) => setTipoRefeicao(e.target.value)}
-									defaultValue=""
+									defaultValue={tipoRefeicao}
 
 									variant="outlined"
 								/>
@@ -146,7 +139,7 @@ function DialogAdd(props) {
 									id="outlined-read-only-input"
 									label="Pessoas Servidas"
 									onChange={(e) => setQtdPessoasServidas(e.target.value)}
-									defaultValue=""
+									defaultValue={qtdPessoasServidas}
 
 									variant="outlined"
 								/>
@@ -157,9 +150,8 @@ function DialogAdd(props) {
 									required
 									id="outlined-read-only-input"
 									label="Nível de dificuldade"
-									defaultValue=""
+									defaultValue={nivelDificuldade}
 									onChange={(e) => setNivelDificuldade(e.target.value)}
-
 									variant="outlined"
 								/>
 							</Grid>
@@ -170,7 +162,7 @@ function DialogAdd(props) {
 									id="outlined-read-only-input"
 									label="Link vídeo"
 									onChange={(e) => setLinkVideo(e.target.value)}
-									defaultValue=""
+									defaultValue={linkVideo}
 
 									variant="outlined"
 								/>
@@ -182,7 +174,7 @@ function DialogAdd(props) {
 									id="outlined-read-only-input"
 									label="Endereço da imagem"
 									onChange={(e) => setEnderecoImg(e.target.value)}
-									defaultValue=""
+									defaultValue={enderecoImg}
 
 									variant="outlined"
 								/>
@@ -196,7 +188,7 @@ function DialogAdd(props) {
 									multiline
 									onChange={(e) => setInstrucoes(e.target.value)}
 									rows={10}
-									defaultValue=""
+									defaultValue={instrucoes}
 									variant="outlined"
 
 								/>
@@ -210,34 +202,27 @@ function DialogAdd(props) {
 									onChange={(e) => setIngredientes(e.target.value)}
 									multiline
 									rows={6}
-									defaultValue=""
+									defaultValue={ingredientes}
 									variant="outlined"
 
 								/>
 							</Grid>
+							<Grid item xs={12}>
+								<Button size="large" startIcon={<SaveIcon />}
+									variant="contained" color="primary" autoFocus onClick={() => salvar()}    >
+									Salvar
+								</Button>
+							</Grid>
 
 						</Grid>
 
-
-
-
-
-
 					</div>
-
 
 				</form>
 
-			</DialogContent>
-			<DialogActions>
 
-
-				<Button variant="contained" color="primary" autoFocus  onClick={() => salvar()}    >
-					Salvar
-        		  </Button>
-
-			</DialogActions>
+			</main>
 		</div>
 	)
 }
-export default DialogAdd;
+export default Adicionar;
