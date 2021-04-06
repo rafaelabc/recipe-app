@@ -1,22 +1,22 @@
 <h1 align="center">
-    <img alt="contact-book" title="#contact-book" src="./assets/notas.png" width="200px" />
+    <img alt="recipe-app" title="#recipe-app" src="./assets/recipe-book.png" width="200px" />
 </h1>
 
 <p align="center">
  <img alt="License" src="https://img.shields.io/badge/license-MIT-orange">
-  <img alt="Repository size" src="https://img.shields.io/github/repo-size/rafaelabc/contact-book">
+  <img alt="Repository size" src="https://img.shields.io/github/repo-size/rafaelabc/recipe-app">
 
 
   <a href="https://github.com/tgmarinho/nlw1/commits/master">
-    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rafaelabc/contact-book">
+    <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/rafaelabc/recipe-app">
   </a>
 
 
    <a href="https://github.com/tgmarinho/nlw1/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/forks/rafaelabc/contact-book?style=social">
+    <img alt="Stargazers" src="https://img.shields.io/github/forks/rafaelabc/recipe-app?style=social">
   </a>
    <a href="https://github.com/tgmarinho/nlw1/stargazers">
-    <img alt="Stargazers" src="https://img.shields.io/github/stars/rafaelabc/contact-book?style=social">
+    <img alt="Stargazers" src="https://img.shields.io/github/stars/rafaelabc/recipe-app?style=social">
   </a>
 </p>
 <p align="center">
