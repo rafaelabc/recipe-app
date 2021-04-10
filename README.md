@@ -40,7 +40,6 @@ Os usuários encontrarão as seguintes funcionalidades:
 - Excluir receita existente
 - Visualizar receitas
 - Visualizar Sugestões de Receitas
-- 🚧 Upload de imagem da receita (**Em construção**) 🚧
 
 Os usuários terão acesso ao aplicativo web, onde poderão:
 - Realizar operações de criar e editar uma receita
