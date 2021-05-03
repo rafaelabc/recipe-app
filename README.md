@@ -29,9 +29,9 @@
 </p>
 
 
-## 💻 Sobre o projeto
+## Sobre o projeto
 
-♻️ RecipeApp - é um gerenciador de receitas, seu objetivo é centralizar todas as receitas em um só lugar e também sugerir novas receitas vindas da API
+RecipeApp - é um gerenciador de receitas, seu objetivo é centralizar todas as receitas em um só lugar e também sugerir novas receitas vindas da API
 [The Meal DB][meal].
 
 Os usuários encontrarão as seguintes funcionalidades:
@@ -49,7 +49,7 @@ Os usuários terão acesso ao aplicativo web, onde poderão:
 
 Projeto desenvolvido para aplicar estudos do [ReactJS][reactjs] e [SpringBoot][spring]
 
-## 🎨 Layout
+## Layout
 
 O layout da aplicação está disponível no Figma:
 
@@ -58,7 +58,7 @@ O layout da aplicação está disponível no Figma:
 </a>
 
 
-## 🛠 Tecnologias
+## Tecnologias
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
@@ -73,7 +73,7 @@ As seguintes ferramentas foram usadas na construção do projeto:
   - [SpringBoot][spring]
   - [Postgres][postgres]
 
-## 🚀 Como executar o projeto
+## Como executar o projeto
 
 Este projeto está dividido em 2 partes:
 1. FrontEnd
@@ -85,12 +85,12 @@ Antes de começar, você vai precisar ter instalado em sua máquina as seguintes
 [Git](https://git-scm.com), [Node.js][nodejs], [Java JDK 11][java-11], [Maven][maven] e [PostgresSQL][postgres].
 Além disto é bom ter um editor para trabalhar com o código como [VSCode][vscode] ou [SpringTools][springtools]
 
-### 💾 Banco de dados
+### Banco de dados
 
 O banco de dados utilizado é o PostgresSQL
 Antes de iniciar a aplicação crie o banco de dados: `CREATE DATABASE recipe_app`
 
-### 🧭 Rodando o Backend (Servidor)
+### Rodando o Backend (Servidor)
 Verifique no arquivo **application.properties** se o nome de usuário e senha
 de seu banco de dados é o default (`username: postgres e password: postgres`). Caso não seja, troque de acordo com suas credenciais.
 
@@ -109,7 +109,7 @@ $ mvn spring-boot:run
 # A aplicação será aberta na porta:8080
 ```
 
-### 🧭 Rodando a aplicação web (Front End)
+### Rodando a aplicação web (Front End)
 
 ```bash
 # Clone este repositório
@@ -130,11 +130,11 @@ $ yarn start
 # A aplicação será aberta na porta:3000 - acesse http://localhost:3000
 ```
 
-## 📝 Licença
+## Licença
 
 Este projeto esta sobe a licença MIT.
 
-Feito por Rafaela Custódio 👋🏽 [Entre em contato!](https://www.linkedin.com/in/rafaela-custodio/)
+Feito por Rafaela Custódio - [Entre em contato!](https://www.linkedin.com/in/rafaela-custodio/)
 
 [axios]: https://github.com/axios/axios
 [materialui]: https://material-ui.com/pt/
